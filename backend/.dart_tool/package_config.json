@@ -248,6 +248,12 @@
       "languageVersion": "2.7"
     },
     {
+      "name": "json_serializable",
+      "rootUri": "file:///C:/Users/ADMIN/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/pub_cache-0.2.3/hosted/pub.flutter-io.cn/json_serializable-3.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "logging",
       "rootUri": "file:///C:/Users/ADMIN/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/pub_cache-0.2.3/hosted/pub.flutter-io.cn/logging-0.11.4",
       "packageUri": "lib/",
@@ -518,7 +524,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-09-29T19:55:02.609297Z",
+  "generated": "2020-09-30T16:34:53.444866Z",
   "generator": "pub",
   "generatorVersion": "2.9.2"
 }
