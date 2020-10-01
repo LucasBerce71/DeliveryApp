@@ -7,8 +7,7 @@ import 'package:pizza_delivery_api/application/exceptions/database_error_excepti
 import 'package:pizza_delivery_api/modules/menu/data/i_menu_repository.dart';
 
 @LazySingleton(as: IMenuRepository)
-class MenuRepository  implements IMenuRepository {
-
+class MenuRepository implements IMenuRepository {
   final IDatabaseConnection _connection;
 
   MenuRepository(this._connection);
@@ -18,33 +17,25 @@ class MenuRepository  implements IMenuRepository {
     final conn = await _connection.openConnection();
 
     try {
-      final result = await conn.query('SELECT * FROM cardapio_grupo');
+      final result = await conn.query('select * from cardapio_grupo');
 
-      if(result.isNotEmpty) {
-        final menus = result.map((row) {
+      if (result.isNotEmpty) {
+        final menus = result.map<Menu>((row) {
           final fields = row.fields;
           return Menu(
             id: fields['id_cardapio_grupo'] as int,
-            name: fields['nome_grupo'] as String
+            name: fields['nome_grupo'] as String,
           );
         }).toList();
 
-        for(var menu in menus) {
-          final resultItems = await conn.query(
-            'SELECT * FROM cardapio_grupo_item WHERE id_cardapio_grupo = ?',
-            [menu.id]
-          ); 
+        for (var menu in menus) {
+          final resultItems = await conn.query('select * from cardapio_grupo_item where id_cardapio_grupo = ?', [menu.id]);
 
-          if(resultItems.isNotEmpty) {
+          if (resultItems.isNotEmpty) {
             final items = resultItems.map((row) {
               final fields = row.fields;
-              return MenuItem(
-                id: fields['id_cardapio_grupo_item'] as int,
-                name: fields['nome'] as String,
-                price: fields['valor'] as double,
-              );
+              return MenuItem(id: fields['id_cardapio_grupo_item'] as int, name: fields['nome'] as String, price: fields['valor'] as double);
             }).toList();
-
             menu.items = items;
           }
         }
@@ -53,7 +44,6 @@ class MenuRepository  implements IMenuRepository {
       }
 
       return [];
-
     } on MySqlException catch (e) {
       print(e);
       throw DatabaseErrorException();
@@ -61,5 +51,4 @@ class MenuRepository  implements IMenuRepository {
       await conn?.close();
     }
   }
-  
 }

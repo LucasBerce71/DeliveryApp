@@ -6,11 +6,13 @@ import 'package:pizza_delivery_api/modules/users/controller/register_user_contro
 import 'package:pizza_delivery_api/pizza_delivery_api.dart';
 
 class UsersRouters implements IRouterConfigure {
+  
   @override
   void configure(Router router) {
     router
       .route('/user')
       .link(() => GetIt.I.get<RegisterUserController>());
+
     router
       .route('/user/auth')
       .link(() => GetIt.I.get<LoginUserController>());

@@ -9,13 +9,14 @@ class User {
   final String name;
   final String email;
   final String password;
-
+  
   User({
     this.id,
-    this.name, 
+    this.name,
     this.email,
-    this.password
+    this.password,
   });
+
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);

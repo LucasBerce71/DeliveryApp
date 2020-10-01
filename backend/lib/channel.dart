@@ -5,6 +5,7 @@ import 'package:pizza_delivery_api/application/routers/routers_configure.dart';
 import 'package:pizza_delivery_api/pizza_delivery_api.dart';
 
 class PizzaDeliveryApiChannel extends ApplicationChannel {
+
   @override
   Future prepare() async {
     logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
@@ -14,6 +15,7 @@ class PizzaDeliveryApiChannel extends ApplicationChannel {
 
   @override
   Controller get entryPoint {
+    
     final router = Router();
 
     RoutersConfigure(router).configure();

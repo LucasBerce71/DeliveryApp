@@ -8,7 +8,7 @@ class MenuFindController extends ResourceController {
   final IMenuService _service;
 
   MenuFindController(this._service);
-  
+
   @Operation.get()
   Future<Response> findAll() async {
     final menus = await _service.getAllMenus();

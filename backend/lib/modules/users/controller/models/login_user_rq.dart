@@ -9,7 +9,7 @@ class LoginUserRq extends Serializable {
   Map<String, dynamic> asMap() {
     return {
       'email': email,
-      'password': password,
+      'password': password
     };
   }
 

@@ -18,16 +18,11 @@ class UserRepository implements IUserRepository {
   @override
   Future<void> saveUser(RegisterUserInputModel inputModel) async {
     final conn = await _connection.openConnection();
-
     try {
-      await conn.query('INSERT usuario(nome, email, senha) VALUES(?,?,?)', [
-        inputModel.name,
-        inputModel.email,
-        CriptyHelpers.generateSHA256Hash(inputModel.password)
-      ]);
+      await conn.query('insert usuario(nome, email, senha) values(?,?,?)', [inputModel.name, inputModel.email, CriptyHelpers.generateSHA256Hash(inputModel.password)]);
     } on MySqlConnection catch (e) {
       print(e);
-      throw DatabaseErrorException(message: 'Erro ao registrar usuário');
+      throw DatabaseErrorException(message: 'Erro ao register usuário');
     } finally {
       await conn?.close();
     }
@@ -36,27 +31,26 @@ class UserRepository implements IUserRepository {
   @override
   Future<User> login(String email, String password) async {
     final conn = await _connection.openConnection();
-
     try {
       final result = await conn.query(
-        '''
-           SELECT * FROM usuario WHERE email = ? AND senha = ?
-        ''',
+        ''' 
+        select * from usuario where email = ? and senha = ?
+      ''',
         [email, CriptyHelpers.generateSHA256Hash(password)],
       );
 
-      if(result.isEmpty) {
+      if(result.isEmpty){
         throw UserNotfoundException();
       }
 
       final fields = result.first.fields;
-
-      return  User(
+      return User(
         id: fields['id_usuario'] as int,
         name: fields['nome'] as String,
         email: fields['email'] as String,
-        password: fields['password'] as String
+        password: fields['senha'] as String,
       );
+
 
     } on MySqlConnection catch (e) {
       print(e);
